@@ -4,8 +4,6 @@ from tkinter import Tk
 from PIL import ImageTk, Image
 import os
 
-
-
 ##############################################variables#######################################################
 
 ##############################################test 1 #########################################################
@@ -15,6 +13,9 @@ indigos = 0
 magentas = 0
 purples = 0
 violets = 0
+reds = 0
+yellows = 0
+greens = 0
 ##############################################test 2 #########################################################
 cyans1 = 0
 blues1 = 0
@@ -22,6 +23,9 @@ indigos1 = 0
 magentas1 = 0
 purples1 = 0
 violets1 = 0
+reds1 = 0
+yellows1 = 0
+greens1 = 0
 ##############################################test 3 #########################################################
 cyans2 = 0
 blues2 = 0
@@ -29,6 +33,9 @@ indigos2 = 0
 magentas2 = 0
 purples2 = 0
 violets2 = 0
+reds2 = 0
+yellows2 = 0
+greens2 = 0
 ##############################################test 4 #########################################################
 cyans3 = 0
 blues3 = 0
@@ -36,6 +43,9 @@ indigos3 = 0
 magentas3 = 0
 purples3 = 0
 violets3 = 0
+reds3 = 0
+yellows3 = 0
+greens3 = 0
 ##############################################################################################################
 window = Tk()
 window.title('Reaction Time')
@@ -48,984 +58,1683 @@ firstimg = Image.open("images/anotherone.png")
 addimg = ImageTk.PhotoImage(firstimg)
 label = Label(frame, image=addimg, bg='black', width=1, height=1)
 label.place(relx=0.25, rely=0.002, relheight=0.5, relwidth=0.5)
-# name request
-name_label = Label(frame, text="Input Subject's Name:", fg='white', bg='black').place(relx=0.25, rely=0.5,
+########################################## subject details ###################################################################################################################
+
+name_label = Label(frame, text="Input Subject's Name:", fg='white', bg='black').place(relx=0.25, rely=0.4,
                                                                                       relheight=0.05, relwidth=0.5)
 name_id = StringVar()
-name_input = Entry(frame, textvariable=name_id).place(relx=0.25, rely=0.55, relheight=0.05, relwidth=0.5)
+name_input = Entry(frame, textvariable=name_id).place(relx=0.25, rely=0.45, relheight=0.05, relwidth=0.5)
+
+age_label = Label(frame, text="Input Subject's Age:", fg='white', bg='black').place(relx=0.25, rely=0.5,
+                                                                                    relheight=0.05, relwidth=0.5)
+age_id = StringVar()
+age_input = Entry(frame, textvariable=age_id).place(relx=0.25, rely=0.55, relheight=0.05, relwidth=0.5)
+
+sex_label = Label(frame, text="Input Subject's Gender:", fg='white', bg='black').place(relx=0.25, rely=0.6,
+                                                                                       relheight=0.05, relwidth=0.5)
+sex_id = StringVar()
+sex_input = Entry(frame, textvariable=sex_id).place(relx=0.25, rely=0.65, relheight=0.05, relwidth=0.5)
+
+
+###############################################################################################################################################################################
+########################################################################### select test page ##################################################################################
 
 
 def game():
-    global cyans, blues, indigos, purples, magentas, violets
-    names = name_id.get()
-    # new page loop
-    # confirmation if the page is correct
-    if names != "":
-        nextPage = Tk()
-        # nextPage.geometry('900x900')
-        nextPage.title('Hello: ' + names)
+    global cyans, blues, indigos, magentas, purples, violets, yellows, reds, greens
+    first = Tk()
+    first.title("hello" + name_id.get())
+    canvas1 = Canvas(first, height=1000, width=1000)
+    canvas1.pack()
+    frame1 = Frame(first, bg='white')
+    frame1.place(relwidth=1, relheight=1)
+    labels = Label(frame1, bg='white', text='Select Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
+                                            'p, Violet = v, Yellow = y, Red = r, Green = g')
+    labels.place(relx=0.03, rely=0.1)
 
-        canvas1 = Canvas(nextPage, height=1000, width=1000)
-        canvas1.pack()
-        frame1 = Frame(nextPage, bg='white')
-        frame1.place(relwidth=1, relheight=1)
-        labels = Label(frame1, bg='white', text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                'p, Violet = v')
-        labels.place(relx=0.03, rely=0.1)
+    colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    def wrong():
+        wrongs = Label(frame1, text="Incorrect Input").pack()
+        pass
+
+    def green1():
+        global greens, indigos, yellows, reds, blues, cyans, magentas, violets, purples
+        greens = round((time.time() - greens), 4)
+        done = Label(frame1, text="TEST COMPLETED CHECK DESKTOP FOR RESULTS").pack()
+        space = os.path.normpath(os.path.expanduser('~'))
+        with open("%s/Desktop/%s1.txt" % (
+                space, name_id.get()), 'w+') as done:
+            done.write("\n" + '\n' + '\n' + '\n' + '\n')
+            done.write(
+                'Data for %s' % name_id.get() + '\n')
+            done.write(
+                'Gender %s' % sex_id.get() + '\n')
+            done.write(
+                'Age %s' % age_id.get() + '\n')
+            done.write(
+                'cyan 1: %s' % str(cyans) + '\n')
+            done.write('blue 1: %s' % str(blues) + '\n')
+            done.write(
+                'indigo 1: %s' % str(indigos) + '\n')
+            done.write(
+                'magenta 1: %s' % str(magentas) + '\n')
+            done.write(
+                'violet 1: %s' % str(violets) + '\n')
+            done.write(
+                'purple 1: %s' % str(purples) + '\n')
+            done.write(
+                'red 1: %s' % str(reds) + '\n')
+            done.write(
+                'yellow 1: %s' % str(yellows) + '\n')
+            done.write(
+                'green 1: %s' % str(greens) + '\n')
+        time.sleep(2)
+        frame1.destroy()
+        endingframe = Frame(first)
+        endingframe.place(relwidth=1, relheight=1)
+        endinglabels = Label(endingframe, bg='white',
+                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+
+        pass
+
+    def yellow1():
+        global greens, yellows
+        yellows = round((time.time() - yellows), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='green', width=1, height=1)
         colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        response = Entry(frame1)
-        response.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-        cyans = time.time()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        def nexts():
-            global cyans, blues
-            names = response.get().lower()
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
-            if names == 'c' or names == 'b' or names == 'i' or names == 'm' or names == 'p' or names == 'v':
-                if names == 'c':
-                    cyans =  time.time() - cyans
-                    frame1.destroy()
-                    time.sleep(5)
-                    cyanframe = Frame(nextPage)
-                    cyanframe.place(relwidth=1, relheight=1)
-                    cyanlabels = Label(cyanframe, bg='white',
-                                       text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                            'p, Violet = v')
-                    cyanlabels.place(relx=0.03, rely=0.1)
-                    cyan_change = Label(cyanframe, bg='blue', width=1, height=1)
-                    cyan_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                    cyanresponse = Entry(cyanframe)
-                    cyanresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                    blues = time.time()
-###############################################################################################################################################################################
-################################################################################cyan function #############################################
-                    def cyan():
-                        global blues,indigos
-                        bluenames = cyanresponse.get().lower()
-                        if bluenames == 'c' or bluenames == 'b' or bluenames == 'i' or bluenames == 'm' or bluenames == 'p' or bluenames == 'v':
-                            if bluenames == 'b':
-                                blues = time.time() - blues
-                                cyanframe.destroy()
-                                time.sleep(5)
-                                blueframe = Frame(nextPage)
-                                blueframe.place(relwidth=1, relheight=1)
-                                bluelabels = Label(blueframe, bg='white',
-                                                   text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                        'p, Violet = v')
-                                bluelabels.place(relx=0.03, rely=0.1)
-                                blue_change = Label(blueframe, bg='indigo', width=1, height=1)
-                                blue_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                blueresponse = Entry(blueframe)
-                                blueresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                indigos = time.time()
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
 
-################################################################################### add blue button command here ################################################################
-                                def blue():
-                                    global indigos, magentas
-                                    indigonames = blueresponse.get().lower()
-                                    if indigonames == 'c' or indigonames == 'b' or indigonames == 'i' or indigonames == 'm' or indigonames == 'p' or indigonames == 'v':
-                                        if indigonames == 'i':
-                                            indigos = time.time() - indigos
-                                            blueframe.destroy()
-                                            time.sleep(5)
-                                            indigoframe = Frame(nextPage)
-                                            indigoframe.place(relwidth=1, relheight=1)
-                                            indigolabels = Label(indigoframe, bg='white',
-                                                                 text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                      'p, Violet = v')
-                                            indigolabels.place(relx=0.03, rely=0.1)
-                                            indigo_change = Label(indigoframe, bg='magenta', width=1, height=1)
-                                            indigo_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                            indigoresponse = Entry(indigoframe)
-                                            indigoresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                            magentas = time.time()
-################################################################################################################################################################################
-################################### add function for magenta######################################################
-                                            def magenta():
-                                                global magentas, violets
-                                                purplenames = indigoresponse.get().lower()
-                                                if purplenames == 'c' or purplenames == 'b' or purplenames == 'i' or purplenames == 'm' or purplenames == 'p' or purplenames == 'v':
-                                                    if purplenames == 'm':
-                                                        magentas = time.time() - magentas
-                                                        indigoframe.destroy()
-                                                        time.sleep(5)
-                                                        purpleframe = Frame(nextPage)
-                                                        purpleframe.place(relwidth=1, relheight=1)
-                                                        purplelabels = Label(purpleframe, bg='white',
-                                                                             text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                  'p, Violet = v')
-                                                        purplelabels.place(relx=0.03, rely=0.1)
-                                                        purple_change = Label(purpleframe, bg='violet', width=1,
-                                                                              height=1)
-                                                        purple_change.place(relx=0.25, rely=0.2, relwidth=0.5,
-                                                                            relheight=0.5)
-                                                        purpleresponse = Entry(purpleframe)
-                                                        purpleresponse.place(relx=0.47, rely=0.75, relheight=0.05,
-                                                                             relwidth=0.05)
-                                                        violets = time.time()
-################################################################################################################################################################################
-################################################### put purple functions here###########################################################################################
-                                                        def purple():
-                                                            global violets, purples
-                                                            violetnames = purpleresponse.get().lower()
-                                                            if violetnames == 'c' or violetnames == 'b' or violetnames == 'i' or violetnames == 'm' or violetnames == 'p' or violetnames == 'v':
-                                                                if violetnames == 'v':
-                                                                    violets = time.time() - violets
-                                                                    purpleframe.destroy()
-                                                                    time.sleep(5)
-                                                                    violetframe = Frame(nextPage)
-                                                                    violetframe.place(relwidth=1, relheight=1)
-                                                                    violetlabels = Label(violetframe, bg='white',
-                                                                                         text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                              'p, Violet = v')
-                                                                    violetlabels.place(relx=0.03, rely=0.1)
-                                                                    violet_change = Label(violetframe, bg='purple',
-                                                                                          width=1, height=1)
-                                                                    violet_change.place(relx=0.25, rely=0.2,
-                                                                                        relwidth=0.5, relheight=0.5)
-                                                                    violetresponse = Entry(violetframe)
-                                                                    violetresponse.place(relx=0.47, rely=0.75,
-                                                                                         relheight=0.05, relwidth=0.05)
-                                                                    purples = time.time()
-#############################################################################################################################################################################################
-###################################### add violet function ####################################################################################################################
-                                                                    def fin():
-                                                                        global cyans, blues, indigos, magentas, violets, purples
-                                                                        purples = time.time() - purples
-                                                                        cyans = round(cyans,4)
-                                                                        blues = round(blues,4)
-                                                                        indigos = round(indigos,4)
-                                                                        magentas = round(magentas,4)
-                                                                        violets = round(violets,4)
-                                                                        purples = round(purples,4)
-                                                                        space = os.path.normpath(os.path.expanduser('~'))
-                                                                        with open("%s/Desktop/%s1.txt" % (
-                                                                        space, name_id.get()), 'w+') as done:
-                                                                            done.write("\n" + '\n' + '\n' + '\n' + '\n')
-                                                                            done.write(
-                                                                                'Data for %s' % name_id.get() + '\n')
-                                                                            done.write(
-                                                                                'cyan 1: %s' % str(cyans) + '\n')
-                                                                            done.write('blue 1: %s' % str(blues) + '\n')
-                                                                            done.write(
-                                                                                'indigo 1: %s' % str(indigos) + '\n')
-                                                                            done.write(
-                                                                                'magenta 1: %s' % str(magentas) + '\n')
-                                                                            done.write(
-                                                                                'violet 1: %s' % str(violets) + '\n')
-                                                                            done.write(
-                                                                                'purple 1: %s' % str(purples) + '\n')
-                                                                        time.sleep(2)
-                                                                        violetframe.destroy()
-                                                                        endingframe = Frame(nextPage)
-                                                                        endingframe.place(relwidth=1, relheight=1)
-                                                                        endinglabels = Label(endingframe, bg='white',
-                                                                                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
 
-                                                                    #################################################################################################################################################################################
-                                                                    violetbtn = Button(violetframe, text="NEXT",
-                                                                                       bg='blue', command = fin)
-                                                                    violetbtn.place(relx=0.35, rely=0.85,
-                                                                                    relheight=0.09, relwidth=0.3)
-                                                                else:
-                                                                    put8 = Label(purpleframe, text='INCORRECT DATA')
-                                                                    put8.pack()
-                                                            else:
-                                                                put7 = Label(purpleframe, text='INPUT A VALID DATA')
-                                                                put7.pack()
-                                                            pass
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=green1)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        greens = time.time()
+
+        pass
+
+    def red1():
+        global reds, yellows
+        reds = round((time.time() - reds), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='yellow', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=yellow1)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
 
 
-########################################################################################################################################################################################################
 
-                                                        purplebtn = Button(purpleframe, text="NEXT", bg='blue',
-                                                                           command=purple)
-                                                        purplebtn.place(relx=0.35, rely=0.85, relheight=0.09,
-                                                                        relwidth=0.3)
-                                                    else:
-                                                        put6 = Label(indigoframe, text='INCORRECT DATA')
-                                                        put6.pack()
-                                                else:
-                                                    put5 = Label(indigoframe, text='INPUT A VALID DATA')
-                                                    put5.pack()
-                                                pass
+        yellows = time.time()
 
-#######################################################################################################################################################################################
-                                            indigobtn = Button(indigoframe, text="NEXT", bg='blue', command=magenta)
-                                            indigobtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                                        else:
-                                            put4 = Label(blueframe, text='INCORRECT DATA')
-                                            put4.pack()
-                                    else:
-                                        put3 = Label(blueframe, text='INPUT A VALID DATA')
-                                        put3.pack()
-                                    pass
+        pass
+
+    def violet1():
+        global violets, reds
+        violets = round((time.time() - violets), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='red', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
 
-##################################################################################################################################################################################
-                                bluebtn = Button(blueframe, text="NEXT", bg='blue', command=blue)
-                                bluebtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                            else:
-                                put2 = Label(cyanframe, text='INCORRECT DATA')
-                                put2.pack()
-                        else:
-                            put1 = Label(cyanframe, text='INPUT A VALID DATA')
-                            put1.pack()
 
-                    cyanbtn = Button(cyanframe, text="NEXT", bg='blue', command=cyan)
-                    cyanbtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                else:
-                    put = Label(frame1, text='INCORRECT DATA')
-                    put.pack()
-            else:
-                put = Label(frame1, text='INPUT A VALID DATA')
-                put.pack()
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        nexting = Button(frame1, text="NEXT", bg='blue', command=nexts)
-        nexting.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=red1)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        window.destroy()
-        nextPage.mainloop()
-    else:
-        warn = Label(text="Sorry You have to input your name")
-        warn.pack()
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        reds = time.time()
+
+        pass
+
+    def purple1():
+        global purples, violets
+        purples = round((time.time() - purples), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='violet', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=violet1)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violets = time.time()
+
+        pass
+
+    def magenta1():
+        global magentas, purples
+        magentas = round((time.time() - magentas), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='purple', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=purple1)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+
+        purples = time.time()
+
+        pass
+
+    def indigo1():
+        global magentas, indigos
+        indigos = round((time.time() - indigos), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='magenta', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=magenta1)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magentas = time.time()
+
+        pass
+
+    def blue1():
+        global blues, indigos
+        blues = round((time.time() - blues),4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='indigo', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=indigo1)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigos = time.time()
+
+        pass
+
+    def cyan1():
+        global cyans, blues
+        cyans = round((time.time() - cyans),4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='blue', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=blue1)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blues = time.time()
+
+        print(cyans)
+
+        pass
+
+    cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=cyan1)
+    cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+    blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+    indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+    magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+    purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+    violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+    yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+    red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+    green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    cyans = time.time()
+
+    pass
+
 
 def game1():
-    global cyans1, blues1, indigos1, purples1, magentas1, violets1
-    names = name_id.get()
-    # new page loop
-    # confirmation if the page is correct
-    if names != "":
-        nextPage = Tk()
-        # nextPage.geometry('900x900')
-        nextPage.title('Hello: ' + names)
+    global cyans1, blues1, indigos1, magentas1, purples1, violets1, yellows1, reds1, greens1
+    first = Tk()
+    first.title("hello" + name_id.get())
+    canvas1 = Canvas(first, height=1000, width=1000)
+    canvas1.pack()
+    frame1 = Frame(first, bg='white')
+    frame1.place(relwidth=1, relheight=1)
+    labels = Label(frame1, bg='white', text='Select Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
+                                            'p, Violet = v, Yellow = y, Red = r, Green = g')
+    labels.place(relx=0.03, rely=0.1)
 
-        canvas1 = Canvas(nextPage, height=1000, width=1000)
-        canvas1.pack()
-        frame1 = Frame(nextPage, bg='white')
-        frame1.place(relwidth=1, relheight=1)
-        labels = Label(frame1, bg='white', text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                'p, Violet = v')
-        labels.place(relx=0.03, rely=0.1)
+    colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    def wrong():
+        wrongs = Label(frame1, text="Incorrect Input").pack()
+        pass
+
+    def green1():
+        global greens1, indigos1, yellows1, reds1, blues1, cyans1, magentas1, violets1, purples1
+        greens1 = round((time.time() - greens1), 4)
+        done = Label(frame1, text="TEST COMPLETED CHECK DESKTOP FOR RESULTS").pack()
+        space = os.path.normpath(os.path.expanduser('~'))
+        with open("%s/Desktop/%s2.txt" % (
+                space, name_id.get()), 'w+') as done:
+            done.write("\n" + '\n' + '\n' + '\n' + '\n')
+            done.write(
+                'Data for %s' % name_id.get() + '\n')
+            done.write(
+                'Gender %s' % sex_id.get() + '\n')
+            done.write(
+                'Age %s' % age_id.get() + '\n')
+            done.write(
+                'cyan 2: %s' % str(cyans1) + '\n')
+            done.write('blue 2: %s' % str(blues1) + '\n')
+            done.write(
+                'indigo 2: %s' % str(indigos1) + '\n')
+            done.write(
+                'magenta 2: %s' % str(magentas1) + '\n')
+            done.write(
+                'violet 2: %s' % str(violets1) + '\n')
+            done.write(
+                'purple 2: %s' % str(purples1) + '\n')
+            done.write(
+                'red 2: %s' % str(reds1) + '\n')
+            done.write(
+                'yellow 2: %s' % str(yellows1) + '\n')
+            done.write(
+                'green 2: %s' % str(greens1) + '\n')
+        time.sleep(2)
+        frame1.destroy()
+        endingframe = Frame(first)
+        endingframe.place(relwidth=1, relheight=1)
+        endinglabels = Label(endingframe, bg='white',
+                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+
+        pass
+
+    def yellow1():
+        global greens1, yellows1
+        yellows1 = round((time.time() - yellows1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='green', width=1, height=1)
         colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        response = Entry(frame1)
-        response.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-        cyans1 = time.time()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        def nexts():
-            global cyans1, blues1
-            names = response.get().lower()
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
-            if names == 'c' or names == 'b' or names == 'i' or names == 'm' or names == 'p' or names == 'v':
-                if names == 'c':
-                    cyans1 =  time.time() - cyans1
-                    frame1.destroy()
-                    time.sleep(5)
-                    cyanframe = Frame(nextPage)
-                    cyanframe.place(relwidth=1, relheight=1)
-                    cyanlabels = Label(cyanframe, bg='white',
-                                       text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                            'p, Violet = v')
-                    cyanlabels.place(relx=0.03, rely=0.1)
-                    cyan_change = Label(cyanframe, bg='blue', width=1, height=1)
-                    cyan_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                    cyanresponse = Entry(cyanframe)
-                    cyanresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                    blues1 = time.time()
-###############################################################################################################################################################################
-################################################################################cyan function #############################################
-                    def cyan():
-                        global blues1,indigos1
-                        bluenames = cyanresponse.get().lower()
-                        if bluenames == 'c' or bluenames == 'b' or bluenames == 'i' or bluenames == 'm' or bluenames == 'p' or bluenames == 'v':
-                            if bluenames == 'b':
-                                blues1 = time.time() - blues1
-                                cyanframe.destroy()
-                                time.sleep(5)
-                                blueframe = Frame(nextPage)
-                                blueframe.place(relwidth=1, relheight=1)
-                                bluelabels = Label(blueframe, bg='white',
-                                                   text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                        'p, Violet = v')
-                                bluelabels.place(relx=0.03, rely=0.1)
-                                blue_change = Label(blueframe, bg='indigo', width=1, height=1)
-                                blue_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                blueresponse = Entry(blueframe)
-                                blueresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                indigos1 = time.time()
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
 
-################################################################################### add blue button command here ################################################################
-                                def blue():
-                                    global indigos1, magentas1
-                                    indigonames = blueresponse.get().lower()
-                                    if indigonames == 'c' or indigonames == 'b' or indigonames == 'i' or indigonames == 'm' or indigonames == 'p' or indigonames == 'v':
-                                        if indigonames == 'i':
-                                            indigos1 = time.time() - indigos1
-                                            blueframe.destroy()
-                                            time.sleep(5)
-                                            indigoframe = Frame(nextPage)
-                                            indigoframe.place(relwidth=1, relheight=1)
-                                            indigolabels = Label(indigoframe, bg='white',
-                                                                 text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                      'p, Violet = v')
-                                            indigolabels.place(relx=0.03, rely=0.1)
-                                            indigo_change = Label(indigoframe, bg='magenta', width=1, height=1)
-                                            indigo_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                            indigoresponse = Entry(indigoframe)
-                                            indigoresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                            magentas1 = time.time()
-################################################################################################################################################################################
-################################### add function for magenta######################################################
-                                            def magenta():
-                                                global magentas1, violets1
-                                                purplenames = indigoresponse.get().lower()
-                                                if purplenames == 'c' or purplenames == 'b' or purplenames == 'i' or purplenames == 'm' or purplenames == 'p' or purplenames == 'v':
-                                                    if purplenames == 'm':
-                                                        magentas1 = time.time() - magentas1
-                                                        indigoframe.destroy()
-                                                        time.sleep(5)
-                                                        purpleframe = Frame(nextPage)
-                                                        purpleframe.place(relwidth=1, relheight=1)
-                                                        purplelabels = Label(purpleframe, bg='white',
-                                                                             text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                  'p, Violet = v')
-                                                        purplelabels.place(relx=0.03, rely=0.1)
-                                                        purple_change = Label(purpleframe, bg='violet', width=1,
-                                                                              height=1)
-                                                        purple_change.place(relx=0.25, rely=0.2, relwidth=0.5,
-                                                                            relheight=0.5)
-                                                        purpleresponse = Entry(purpleframe)
-                                                        purpleresponse.place(relx=0.47, rely=0.75, relheight=0.05,
-                                                                             relwidth=0.05)
-                                                        violets1 = time.time()
-################################################################################################################################################################################
-################################################### put purple functions here###########################################################################################
-                                                        def purple():
-                                                            global violets1, purples1
-                                                            violetnames = purpleresponse.get().lower()
-                                                            if violetnames == 'c' or violetnames == 'b' or violetnames == 'i' or violetnames == 'm' or violetnames == 'p' or violetnames == 'v':
-                                                                if violetnames == 'v':
-                                                                    violets1 = time.time() - violets1
-                                                                    purpleframe.destroy()
-                                                                    time.sleep(5)
-                                                                    violetframe = Frame(nextPage)
-                                                                    violetframe.place(relwidth=1, relheight=1)
-                                                                    violetlabels = Label(violetframe, bg='white',
-                                                                                         text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                              'p, Violet = v')
-                                                                    violetlabels.place(relx=0.03, rely=0.1)
-                                                                    violet_change = Label(violetframe, bg='purple',
-                                                                                          width=1, height=1)
-                                                                    violet_change.place(relx=0.25, rely=0.2,
-                                                                                        relwidth=0.5, relheight=0.5)
-                                                                    violetresponse = Entry(violetframe)
-                                                                    violetresponse.place(relx=0.47, rely=0.75,
-                                                                                         relheight=0.05, relwidth=0.05)
-                                                                    purples1 = time.time()
-#############################################################################################################################################################################################
-###################################### add violet function ####################################################################################################################
-                                                                    def fin():
-                                                                        global cyans1, blues1, indigos1, magentas1, violets1, purples1
-                                                                        purples1 = time.time() - purples1
-                                                                        cyans1 = round(cyans1,4)
-                                                                        blues1 = round(blues1,4)
-                                                                        indigos1 = round(indigos1,4)
-                                                                        magentas1 = round(magentas1,4)
-                                                                        violets1 = round(violets1,4)
-                                                                        purples1 = round(purples1,4)
-                                                                        space = os.path.normpath(os.path.expanduser('~'))
-                                                                        with open("%s/Desktop/%s2.txt" % (
-                                                                        space, name_id.get()), 'w+') as done:
-                                                                            done.write("\n" + '\n' + '\n' + '\n' + '\n')
-                                                                            done.write(
-                                                                                'Data for %s' % name_id.get() + '\n')
-                                                                            done.write(
-                                                                                'cyan 2: %s' % str(cyans1) + '\n')
-                                                                            done.write('blue 2: %s' % str(blues1) + '\n')
-                                                                            done.write(
-                                                                                'indigo 2: %s' % str(indigos1) + '\n')
-                                                                            done.write(
-                                                                                'magenta 2: %s' % str(magentas1) + '\n')
-                                                                            done.write(
-                                                                                'violet 2: %s' % str(violets1) + '\n')
-                                                                            done.write(
-                                                                                'purple 2: %s' % str(purples1) + '\n')
-                                                                        time.sleep(2)
-                                                                        violetframe.destroy()
-                                                                        endingframe = Frame(nextPage)
-                                                                        endingframe.place(relwidth=1, relheight=1)
-                                                                        endinglabels = Label(endingframe, bg='white',
-                                                                                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
-#################################################################################################################################################################################
-                                                                    violetbtn = Button(violetframe, text="NEXT",
-                                                                                       bg='blue', command = fin)
-                                                                    violetbtn.place(relx=0.35, rely=0.85,
-                                                                                    relheight=0.09, relwidth=0.3)
-                                                                else:
-                                                                    put8 = Label(purpleframe, text='INCORRECT DATA')
-                                                                    put8.pack()
-                                                            else:
-                                                                put7 = Label(purpleframe, text='INPUT A VALID DATA')
-                                                                put7.pack()
-                                                            pass
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
 
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
 
-########################################################################################################################################################################################################
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
 
-                                                        purplebtn = Button(purpleframe, text="NEXT", bg='blue',
-                                                                           command=purple)
-                                                        purplebtn.place(relx=0.35, rely=0.85, relheight=0.09,
-                                                                        relwidth=0.3)
-                                                    else:
-                                                        put6 = Label(indigoframe, text='INCORRECT DATA')
-                                                        put6.pack()
-                                                else:
-                                                    put5 = Label(indigoframe, text='INPUT A VALID DATA')
-                                                    put5.pack()
-                                                pass
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
 
-#######################################################################################################################################################################################
-                                            indigobtn = Button(indigoframe, text="NEXT", bg='blue', command=magenta)
-                                            indigobtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                                        else:
-                                            put4 = Label(blueframe, text='INCORRECT DATA')
-                                            put4.pack()
-                                    else:
-                                        put3 = Label(blueframe, text='INPUT A VALID DATA')
-                                        put3.pack()
-                                    pass
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
 
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=green1)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
 
-##################################################################################################################################################################################
-                                bluebtn = Button(blueframe, text="NEXT", bg='blue', command=blue)
-                                bluebtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                            else:
-                                put2 = Label(cyanframe, text='INCORRECT DATA')
-                                put2.pack()
-                        else:
-                            put1 = Label(cyanframe, text='INPUT A VALID DATA')
-                            put1.pack()
+        greens1 = time.time()
 
-                    cyanbtn = Button(cyanframe, text="NEXT", bg='blue', command=cyan)
-                    cyanbtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                else:
-                    put = Label(frame1, text='INCORRECT DATA')
-                    put.pack()
-            else:
-                put = Label(frame1, text='INPUT A VALID DATA')
-                put.pack()
+        pass
 
-        nexting = Button(frame1, text="NEXT", bg='blue', command=nexts)
-        nexting.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
+    def red1():
+        global reds1, yellows1
+        reds1 = round((time.time() - reds1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='yellow', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        window.destroy()
-        nextPage.mainloop()
-    else:
-        warn = Label(text="Sorry You have to input your name")
-        warn.pack()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=yellow1)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellows1 = time.time()
+
+        pass
+
+    def violet1():
+        global violets1, reds1
+        violets1 = round((time.time() - violets1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='red', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=red1)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        reds1 = time.time()
+
+        pass
+
+    def purple1():
+        global purples1, violets1
+        purples1 = round((time.time() - purples1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='violet', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=violet1)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violets1 = time.time()
+
+        pass
+
+    def magenta1():
+        global magentas1, purples1
+        magentas1 = round((time.time() - magentas1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='purple', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=purple1)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purples1 = time.time()
+
+        pass
+
+    def indigo1():
+        global magentas1, indigos1
+        indigos1 = round((time.time() - indigos1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='magenta', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=magenta1)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magentas1 = time.time()
+
+        pass
+
+    def blue1():
+        global blues1, indigos1
+        blues1 = round((time.time() - blues1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='indigo', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=indigo1)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigos1 = time.time()
+
+        pass
+
+    def cyan1():
+        global cyans1, blues1
+        cyans1 = round((time.time() - cyans1), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='blue', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=blue1)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blues1 = time.time()
+
+        pass
+
+    cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=cyan1)
+    cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+    blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+    indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+    magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+    purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+    violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+    yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+    red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+    green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    cyans1 = time.time()
+
+    pass
+
 
 def game2():
-    global cyans2, blues2, indigos2, purples2, magentas2, violets2
-    names = name_id.get()
-    # new page loop
-    # confirmation if the page is correct
-    if names != "":
-        nextPage = Tk()
-        # nextPage.geometry('900x900')
-        nextPage.title('Hello: ' + names)
+    global cyans2, blues2, indigos2, magentas2, purples2, violets2, yellows2, reds2, greens2
+    first = Tk()
+    first.title("hello" + name_id.get())
+    canvas1 = Canvas(first, height=1000, width=1000)
+    canvas1.pack()
+    frame1 = Frame(first, bg='white')
+    frame1.place(relwidth=1, relheight=1)
+    labels = Label(frame1, bg='white', text='Select Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
+                                            'p, Violet = v, Yellow = y, Red = r, Green = g')
+    labels.place(relx=0.03, rely=0.1)
 
-        canvas1 = Canvas(nextPage, height=1000, width=1000)
-        canvas1.pack()
-        frame1 = Frame(nextPage, bg='white')
-        frame1.place(relwidth=1, relheight=1)
-        labels = Label(frame1, bg='white', text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                'p, Violet = v')
-        labels.place(relx=0.03, rely=0.1)
+    colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    def wrong():
+        wrongs = Label(frame1, text="Incorrect Input").pack()
+        pass
+
+    def green1():
+        global greens2, indigos, yellows2, reds2, blues2, cyans2, magentas2, violets2, purples2
+        greens2 = round((time.time() - greens2), 4)
+        done = Label(frame1, text="TEST COMPLETED CHECK DESKTOP FOR RESULTS").pack()
+        space = os.path.normpath(os.path.expanduser('~'))
+        with open("%s/Desktop/%s3.txt" % (
+                space, name_id.get()), 'w+') as done:
+            done.write("\n" + '\n' + '\n' + '\n' + '\n')
+            done.write(
+                'Data for %s' % name_id.get() + '\n')
+            done.write(
+                'Gender %s' % sex_id.get() + '\n')
+            done.write(
+                'Age %s' % age_id.get() + '\n')
+            done.write(
+                'cyan 3: %s' % str(cyans2) + '\n')
+            done.write('blue 3: %s' % str(blues2) + '\n')
+            done.write(
+                'indigo 3: %s' % str(indigos2) + '\n')
+            done.write(
+                'magenta 3: %s' % str(magentas2) + '\n')
+            done.write(
+                'violet 3: %s' % str(violets2) + '\n')
+            done.write(
+                'purple 3: %s' % str(purples2) + '\n')
+            done.write(
+                'red 3: %s' % str(reds2) + '\n')
+            done.write(
+                'yellow 3: %s' % str(yellows2) + '\n')
+            done.write(
+                'green 3: %s' % str(greens2) + '\n')
+        time.sleep(2)
+        frame1.destroy()
+        endingframe = Frame(first)
+        endingframe.place(relwidth=1, relheight=1)
+        endinglabels = Label(endingframe, bg='white',
+                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+
+        pass
+
+    def yellow1():
+        global greens2, yellows2
+        yellows2 = round((time.time() - yellows2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='green', width=1, height=1)
         colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        response = Entry(frame1)
-        response.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-        cyans2 = time.time()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        def nexts():
-            global cyans2, blues2
-            names = response.get().lower()
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
-            if names == 'c' or names == 'b' or names == 'i' or names == 'm' or names == 'p' or names == 'v':
-                if names == 'c':
-                    cyans2 =  time.time() - cyans2
-                    frame1.destroy()
-                    time.sleep(5)
-                    cyanframe = Frame(nextPage)
-                    cyanframe.place(relwidth=1, relheight=1)
-                    cyanlabels = Label(cyanframe, bg='white',
-                                       text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                            'p, Violet = v')
-                    cyanlabels.place(relx=0.03, rely=0.1)
-                    cyan_change = Label(cyanframe, bg='blue', width=1, height=1)
-                    cyan_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                    cyanresponse = Entry(cyanframe)
-                    cyanresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                    blues2 = time.time()
-###############################################################################################################################################################################
-################################################################################cyan function #############################################
-                    def cyan():
-                        global blues2,indigos2
-                        bluenames = cyanresponse.get().lower()
-                        if bluenames == 'c' or bluenames == 'b' or bluenames == 'i' or bluenames == 'm' or bluenames == 'p' or bluenames == 'v':
-                            if bluenames == 'b':
-                                blues2 = time.time() - blues2
-                                cyanframe.destroy()
-                                time.sleep(5)
-                                blueframe = Frame(nextPage)
-                                blueframe.place(relwidth=1, relheight=1)
-                                bluelabels = Label(blueframe, bg='white',
-                                                   text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                        'p, Violet = v')
-                                bluelabels.place(relx=0.03, rely=0.1)
-                                blue_change = Label(blueframe, bg='indigo', width=1, height=1)
-                                blue_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                blueresponse = Entry(blueframe)
-                                blueresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                indigos2 = time.time()
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
 
-################################################################################### add blue button command here ################################################################
-                                def blue():
-                                    global indigos2, magentas2
-                                    indigonames = blueresponse.get().lower()
-                                    if indigonames == 'c' or indigonames == 'b' or indigonames == 'i' or indigonames == 'm' or indigonames == 'p' or indigonames == 'v':
-                                        if indigonames == 'i':
-                                            indigos2 = time.time() - indigos2
-                                            blueframe.destroy()
-                                            time.sleep(5)
-                                            indigoframe = Frame(nextPage)
-                                            indigoframe.place(relwidth=1, relheight=1)
-                                            indigolabels = Label(indigoframe, bg='white',
-                                                                 text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                      'p, Violet = v')
-                                            indigolabels.place(relx=0.03, rely=0.1)
-                                            indigo_change = Label(indigoframe, bg='magenta', width=1, height=1)
-                                            indigo_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                            indigoresponse = Entry(indigoframe)
-                                            indigoresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                            magentas2 = time.time()
-################################################################################################################################################################################
-################################### add function for magenta######################################################
-                                            def magenta():
-                                                global magentas2, violets2
-                                                purplenames = indigoresponse.get().lower()
-                                                if purplenames == 'c' or purplenames == 'b' or purplenames == 'i' or purplenames == 'm' or purplenames == 'p' or purplenames == 'v':
-                                                    if purplenames == 'm':
-                                                        magentas2 = time.time() - magentas2
-                                                        indigoframe.destroy()
-                                                        time.sleep(5)
-                                                        purpleframe = Frame(nextPage)
-                                                        purpleframe.place(relwidth=1, relheight=1)
-                                                        purplelabels = Label(purpleframe, bg='white',
-                                                                             text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                  'p, Violet = v')
-                                                        purplelabels.place(relx=0.03, rely=0.1)
-                                                        purple_change = Label(purpleframe, bg='violet', width=1,
-                                                                              height=1)
-                                                        purple_change.place(relx=0.25, rely=0.2, relwidth=0.5,
-                                                                            relheight=0.5)
-                                                        purpleresponse = Entry(purpleframe)
-                                                        purpleresponse.place(relx=0.47, rely=0.75, relheight=0.05,
-                                                                             relwidth=0.05)
-                                                        violets2 = time.time()
-################################################################################################################################################################################
-################################################### put purple functions here###########################################################################################
-                                                        def purple():
-                                                            global violets2, purples2
-                                                            violetnames = purpleresponse.get().lower()
-                                                            if violetnames == 'c' or violetnames == 'b' or violetnames == 'i' or violetnames == 'm' or violetnames == 'p' or violetnames == 'v':
-                                                                if violetnames == 'v':
-                                                                    violets2 = time.time() - violets2
-                                                                    purpleframe.destroy()
-                                                                    time.sleep(5)
-                                                                    violetframe = Frame(nextPage)
-                                                                    violetframe.place(relwidth=1, relheight=1)
-                                                                    violetlabels = Label(violetframe, bg='white',
-                                                                                         text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                              'p, Violet = v')
-                                                                    violetlabels.place(relx=0.03, rely=0.1)
-                                                                    violet_change = Label(violetframe, bg='purple',
-                                                                                          width=1, height=1)
-                                                                    violet_change.place(relx=0.25, rely=0.2,
-                                                                                        relwidth=0.5, relheight=0.5)
-                                                                    violetresponse = Entry(violetframe)
-                                                                    violetresponse.place(relx=0.47, rely=0.75,
-                                                                                         relheight=0.05, relwidth=0.05)
-                                                                    purples2 = time.time()
-#############################################################################################################################################################################################
-###################################### add violet function ####################################################################################################################
-                                                                    def fin():
-                                                                        global cyans2, blues2, indigos2, magentas2, violets2, purples2
-                                                                        purples2 = time.time() - purples2
-                                                                        cyans2 = round(cyans2,4)
-                                                                        blues2 = round(blues2,4)
-                                                                        indigos2 = round(indigos2,4)
-                                                                        magentas2 = round(magentas2,4)
-                                                                        violets2 = round(violets2,4)
-                                                                        purples2 = round(purples2,4)
-                                                                        space = os.path.normpath(os.path.expanduser('~'))
-                                                                        with open("%s/Desktop/%s3.txt"%(space,name_id.get()),'w+') as done:
-                                                                            done.write("\n" + '\n' + '\n' + '\n' + '\n')
-                                                                            done.write('Data for %s'%name_id.get()+'\n')
-                                                                            done.write('cyan 3: %s'%str(cyans2)+'\n')
-                                                                            done.write('blue 3: %s' % str(blues2) + '\n')
-                                                                            done.write('indigo 3: %s' % str(indigos2) + '\n')
-                                                                            done.write('magenta 3: %s' % str(magentas2) + '\n')
-                                                                            done.write('violet 3: %s' % str(violets2) + '\n')
-                                                                            done.write('purple 3: %s' % str(purples2) + '\n')
-                                                                        time.sleep(2)
-                                                                        violetframe.destroy()
-                                                                        endingframe = Frame(nextPage)
-                                                                        endingframe.place(relwidth=1, relheight=1)
-                                                                        endinglabels = Label(endingframe, bg='white',
-                                                                                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
 
- #################################################################################################################################################################################
-                                                                    violetbtn = Button(violetframe, text="NEXT",
-                                                                                       bg='blue', command = fin)
-                                                                    violetbtn.place(relx=0.35, rely=0.85,
-                                                                                    relheight=0.09, relwidth=0.3)
-                                                                else:
-                                                                    put8 = Label(purpleframe, text='INCORRECT DATA')
-                                                                    put8.pack()
-                                                            else:
-                                                                put7 = Label(purpleframe, text='INPUT A VALID DATA')
-                                                                put7.pack()
-                                                            pass
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
 
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
 
-########################################################################################################################################################################################################
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
 
-                                                        purplebtn = Button(purpleframe, text="NEXT", bg='blue',
-                                                                           command=purple)
-                                                        purplebtn.place(relx=0.35, rely=0.85, relheight=0.09,
-                                                                        relwidth=0.3)
-                                                    else:
-                                                        put6 = Label(indigoframe, text='INCORRECT DATA')
-                                                        put6.pack()
-                                                else:
-                                                    put5 = Label(indigoframe, text='INPUT A VALID DATA')
-                                                    put5.pack()
-                                                pass
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
 
-#######################################################################################################################################################################################
-                                            indigobtn = Button(indigoframe, text="NEXT", bg='blue', command=magenta)
-                                            indigobtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                                        else:
-                                            put4 = Label(blueframe, text='INCORRECT DATA')
-                                            put4.pack()
-                                    else:
-                                        put3 = Label(blueframe, text='INPUT A VALID DATA')
-                                        put3.pack()
-                                    pass
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=green1)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
 
+        greens2 = time.time()
 
-##################################################################################################################################################################################
-                                bluebtn = Button(blueframe, text="NEXT", bg='blue', command=blue)
-                                bluebtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                            else:
-                                put2 = Label(cyanframe, text='INCORRECT DATA')
-                                put2.pack()
-                        else:
-                            put1 = Label(cyanframe, text='INPUT A VALID DATA')
-                            put1.pack()
+        pass
 
-                    cyanbtn = Button(cyanframe, text="NEXT", bg='blue', command=cyan)
-                    cyanbtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                else:
-                    put = Label(frame1, text='INCORRECT DATA')
-                    put.pack()
-            else:
-                put = Label(frame1, text='INPUT A VALID DATA')
-                put.pack()
+    def red1():
+        global reds2, yellows2
+        reds2 = round((time.time() - reds2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='yellow', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        nexting = Button(frame1, text="NEXT", bg='blue', command=nexts)
-        nexting.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        window.destroy()
-        nextPage.mainloop()
-    else:
-        warn = Label(text="Sorry You have to input your name")
-        warn.pack()
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=yellow1)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellows2 = time.time()
+
+        pass
+
+    def violet1():
+        global violets2, reds2
+        violets2 = round((time.time() - violets2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='red', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=red1)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        reds2 = time.time()
+
+        pass
+
+    def purple1():
+        global purples2, violets2
+        purples2 = round((time.time() - purples2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='violet', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=violet1)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violets2 = time.time()
+
+        pass
+
+    def magenta1():
+        global magentas2, purples2
+        magentas2 = round((time.time() - magentas2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='purple', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=purple1)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purples2 = time.time()
+
+        pass
+
+    def indigo1():
+        global magentas2, indigos2
+        indigos2 = round((time.time() - indigos2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='magenta', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=magenta1)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magentas2 = time.time()
+
+        pass
+
+    def blue1():
+        global blues2, indigos2
+        blues2 = round((time.time() - blues2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='indigo', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=indigo1)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigos2 = time.time()
+
+        pass
+
+    def cyan1():
+        global cyans2, blues2
+        cyans2 = round((time.time() - cyans2), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='blue', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=blue1)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blues2 = time.time()
+
+        pass
+
+    cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=cyan1)
+    cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+    blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+    indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+    magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+    purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+    violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+    yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+    red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+    green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    cyans2 = time.time()
+
+    pass
+
 
 def game3():
-    global cyans3, blues3, indigos3, purples3, magentas3, violets3
-    names = name_id.get()
-    # new page loop
-    # confirmation if the page is correct
-    if names != "":
-        nextPage = Tk()
-        # nextPage.geometry('900x900')
-        nextPage.title('Hello: ' + names)
+    global cyans3, blues3, indigos3, magentas3, purples3, violets3, yellows3, reds3, greens3
+    first = Tk()
+    first.title("hello" + name_id.get())
+    canvas1 = Canvas(first, height=1000, width=1000)
+    canvas1.pack()
+    frame1 = Frame(first, bg='white')
+    frame1.place(relwidth=1, relheight=1)
+    labels = Label(frame1, bg='white', text='Select letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
+                                            'p, Violet = v, Yellow = y, Red = r, Green = g')
+    labels.place(relx=0.03, rely=0.1)
 
-        canvas1 = Canvas(nextPage, height=1000, width=1000)
-        canvas1.pack()
-        frame1 = Frame(nextPage, bg='white')
-        frame1.place(relwidth=1, relheight=1)
-        labels = Label(frame1, bg='white', text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                'p, Violet = v')
-        labels.place(relx=0.03, rely=0.1)
+    colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        colors_change = Label(frame1, bg='cyan', width=1, height=1)
+    def wrong():
+        wrongs = Label(frame1, text="Incorrect Input").pack()
+        pass
+
+    def green1():
+        global greens, indigos, yellows, reds, blues, cyans, magentas, violets, purples
+        global greens2, indigos2, yellows2, reds2, blues2, cyans2, magentas2, violets2, purples2
+        global greens1, indigos1, yellows1, reds1, blues1, cyans1, magentas1, violets1, purples1
+        global greens3, indigos3, yellows3, reds3, blues3, cyans3, magentas3, violets3, purples3
+        greens3 = round((time.time() - greens3), 4)
+        avgreen = str((greens+greens1+greens2+greens3)/4)
+        avgreen = round(avgreen,4)
+        avred = str((reds + reds1 + reds2 + reds3) / 4)
+        avred = round(avred, 4)
+        avyellow = str((yellows + yellows1 + yellows2 + yellows3) / 4)
+        avyellow = round(avyellow, 4)
+        avindigo = str((indigos + indigos1 + indigos2 + indigos3) / 4)
+        avindigo = round(avindigo, 4)
+        avblue = str((blues + blues1 + blues2 + blues3) / 4)
+        avblue = round(avblue, 4)
+        avcyan = str((cyans + cyans1 + cyans2 + cyans3) / 4)
+        avcyan = round(avcyan, 4)
+        avmagenta = str((magentas + magentas1 + magentas2 + magentas3) / 4)
+        avmagenta = round(avmagenta, 4)
+        avviolet = str((violets + violets1 + violets2 + violets3) / 4)
+        avviolet = round(avviolet, 4)
+        avpurple = str((purples + purples1 + purples2 + purples3) / 4)
+        avpurple = round(avpurple, 4)
+
+        done = Label(frame1, text="TEST COMPLETED CHECK DESKTOP FOR RESULTS").pack()
+        space = os.path.normpath(os.path.expanduser('~'))
+        with open("%s/Desktop/%s4.txt" % (
+                space, name_id.get()), 'w+') as done:
+            done.write("\n" + '\n' + '\n' + '\n' + '\n')
+            done.write(
+                'Data for %s' % name_id.get() + '\n')
+            done.write(
+                'Gender %s' % sex_id.get() + '\n')
+            done.write(
+                'Age %s' % age_id.get() + '\n')
+            done.write(
+                'cyan 4: %s' % str(cyans3) + '\n')
+            done.write('blue 4: %s' % str(blues3) + '\n')
+            done.write(
+                'indigo 4: %s' % str(indigos3) + '\n')
+            done.write(
+                'magenta 4: %s' % str(magentas3) + '\n')
+            done.write(
+                'violet 4: %s' % str(violets3) + '\n')
+            done.write(
+                'purple 4: %s' % str(purples3) + '\n')
+            done.write(
+                'red 4: %s' % str(reds3) + '\n')
+            done.write(
+                'yellow 4: %s' % str(yellows3) + '\n')
+            done.write(
+                'green 4: %s' % str(greens3) + '\n'+ '\n'+ '\n'+ '\n')
+            done.write('AVERAGE FOR COLORS ARE: ' + '\n')
+            done.write('GREEN: %s '% str(avgreen)+'\n'+'RED: %s'% str(avred)+'\n'+'YELLOW: %s '% str(avyellow)+'\n'+'CYAN: %s'% str(avcyan)+'\n'+'BLUE: %s '% str(avblue)+
+                       '\n'+'INDIGO: %s'% str(avindigo) +'\n')
+            done.write('PURPLE: %s '% str(avpurple) + '\n' + 'VIOLET: %s'% str(avviolet) + '\n' + 'MAGENTA: %s '% str(avmagenta) )
+        time.sleep(2)
+        frame1.destroy()
+        endingframe = Frame(first)
+        endingframe.place(relwidth=1, relheight=1)
+        endinglabels = Label(endingframe, bg='white',
+                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+
+        pass
+
+    def yellow1():
+        global greens3, yellows3
+        yellows3 = round((time.time() - yellows3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='green', width=1, height=1)
         colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-        response = Entry(frame1)
-        response.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-        cyans3 = time.time()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        def nexts():
-            global cyans3, blues3
-            names = response.get().lower()
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
-            if names == 'c' or names == 'b' or names == 'i' or names == 'm' or names == 'p' or names == 'v':
-                if names == 'c':
-                    cyans3 =  time.time() - cyans3
-                    frame1.destroy()
-                    time.sleep(5)
-                    cyanframe = Frame(nextPage)
-                    cyanframe.place(relwidth=1, relheight=1)
-                    cyanlabels = Label(cyanframe, bg='white',
-                                       text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                            'p, Violet = v')
-                    cyanlabels.place(relx=0.03, rely=0.1)
-                    cyan_change = Label(cyanframe, bg='blue', width=1, height=1)
-                    cyan_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                    cyanresponse = Entry(cyanframe)
-                    cyanresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                    blues3 = time.time()
-###############################################################################################################################################################################
-################################################################################cyan function #############################################
-                    def cyan():
-                        global blues3,indigos3
-                        bluenames = cyanresponse.get().lower()
-                        if bluenames == 'c' or bluenames == 'b' or bluenames == 'i' or bluenames == 'm' or bluenames == 'p' or bluenames == 'v':
-                            if bluenames == 'b':
-                                blues3 = time.time() - blues3
-                                cyanframe.destroy()
-                                time.sleep(5)
-                                blueframe = Frame(nextPage)
-                                blueframe.place(relwidth=1, relheight=1)
-                                bluelabels = Label(blueframe, bg='white',
-                                                   text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                        'p, Violet = v')
-                                bluelabels.place(relx=0.03, rely=0.1)
-                                blue_change = Label(blueframe, bg='indigo', width=1, height=1)
-                                blue_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                blueresponse = Entry(blueframe)
-                                blueresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                indigos3 = time.time()
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
 
-################################################################################### add blue button command here ################################################################
-                                def blue():
-                                    global indigos3, magentas3
-                                    indigonames = blueresponse.get().lower()
-                                    if indigonames == 'c' or indigonames == 'b' or indigonames == 'i' or indigonames == 'm' or indigonames == 'p' or indigonames == 'v':
-                                        if indigonames == 'i':
-                                            indigos3 = time.time() - indigos3
-                                            blueframe.destroy()
-                                            time.sleep(5)
-                                            indigoframe = Frame(nextPage)
-                                            indigoframe.place(relwidth=1, relheight=1)
-                                            indigolabels = Label(indigoframe, bg='white',
-                                                                 text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                      'p, Violet = v')
-                                            indigolabels.place(relx=0.03, rely=0.1)
-                                            indigo_change = Label(indigoframe, bg='magenta', width=1, height=1)
-                                            indigo_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
-                                            indigoresponse = Entry(indigoframe)
-                                            indigoresponse.place(relx=0.47, rely=0.75, relheight=0.05, relwidth=0.05)
-                                            magentas3 = time.time()
-################################################################################################################################################################################
-################################### add function for magenta######################################################
-                                            def magenta():
-                                                global magentas3, violets3
-                                                purplenames = indigoresponse.get().lower()
-                                                if purplenames == 'c' or purplenames == 'b' or purplenames == 'i' or purplenames == 'm' or purplenames == 'p' or purplenames == 'v':
-                                                    if purplenames == 'm':
-                                                        magentas3 = time.time() - magentas3
-                                                        indigoframe.destroy()
-                                                        time.sleep(5)
-                                                        purpleframe = Frame(nextPage)
-                                                        purpleframe.place(relwidth=1, relheight=1)
-                                                        purplelabels = Label(purpleframe, bg='white',
-                                                                             text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                  'p, Violet = v')
-                                                        purplelabels.place(relx=0.03, rely=0.1)
-                                                        purple_change = Label(purpleframe, bg='violet', width=1,
-                                                                              height=1)
-                                                        purple_change.place(relx=0.25, rely=0.2, relwidth=0.5,
-                                                                            relheight=0.5)
-                                                        purpleresponse = Entry(purpleframe)
-                                                        purpleresponse.place(relx=0.47, rely=0.75, relheight=0.05,
-                                                                             relwidth=0.05)
-                                                        violets3 = time.time()
-################################################################################################################################################################################
-################################################### put purple functions here###########################################################################################
-                                                        def purple():
-                                                            global violets3, purples3
-                                                            violetnames = purpleresponse.get().lower()
-                                                            if violetnames == 'c' or violetnames == 'b' or violetnames == 'i' or violetnames == 'm' or violetnames == 'p' or violetnames == 'v':
-                                                                if violetnames == 'v':
-                                                                    violets3 = time.time() - violets3
-                                                                    purpleframe.destroy()
-                                                                    time.sleep(5)
-                                                                    violetframe = Frame(nextPage)
-                                                                    violetframe.place(relwidth=1, relheight=1)
-                                                                    violetlabels = Label(violetframe, bg='white',
-                                                                                         text='Input letters Blue = b, Cyan = c, Indigo = i, Magenta = m, Purple = '
-                                                                                              'p, Violet = v')
-                                                                    violetlabels.place(relx=0.03, rely=0.1)
-                                                                    violet_change = Label(violetframe, bg='purple',
-                                                                                          width=1, height=1)
-                                                                    violet_change.place(relx=0.25, rely=0.2,
-                                                                                        relwidth=0.5, relheight=0.5)
-                                                                    violetresponse = Entry(violetframe)
-                                                                    violetresponse.place(relx=0.47, rely=0.75,
-                                                                                         relheight=0.05, relwidth=0.05)
-                                                                    purples3 = time.time()
-#############################################################################################################################################################################################
-###################################### add violet function ####################################################################################################################
-                                                                    def fin():
-                                                                        global cyans3, blues3, indigos3, magentas3, violets3, purples3
-                                                                        purples3 = time.time() - purples3
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
 
-                                                                        cyans3 = round(cyans3,4)
-                                                                        blues3 = round(blues3,4)
-                                                                        indigos3 = round(indigos3,4)
-                                                                        magentas3 = round(magentas3,4)
-                                                                        violets3 = round(violets3,4)
-                                                                        purples3 = round(purples3,4)
-                                                                        space = os.path.normpath(os.path.expanduser('~'))
-                                                                        with open("%s/Desktop/%s4.txt"%(space,name_id.get()),'w+') as done:
-                                                                            done.write("\n" + '\n' + '\n' + '\n' + '\n')
-                                                                            done.write('Data for %s'%name_id.get()+'\n')
-                                                                            done.write('cyan 4: %s'%str(cyans3)+'\n')
-                                                                            done.write('blue 4: %s' % str(blues3) + '\n')
-                                                                            done.write('indigo 4: %s' % str(indigos3) + '\n')
-                                                                            done.write('magenta 4: %s' % str(magentas3) + '\n')
-                                                                            done.write('violet 4: %s' % str(violets3) + '\n')
-                                                                            done.write('purple 4: %s' % str(purples3) + '\n')
-                                                                        time.sleep(2)
-                                                                        violetframe.destroy()
-                                                                        endingframe = Frame(nextPage)
-                                                                        endingframe.place(relwidth=1, relheight=1)
-                                                                        endinglabels = Label(endingframe, bg='white',
-                                                                                             text='TEST COMPLETE FIND RESULT ON DESKTOP').pack()
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
 
- #################################################################################################################################################################################
-                                                                    violetbtn = Button(violetframe, text="NEXT",
-                                                                                       bg='blue', command = fin)
-                                                                    violetbtn.place(relx=0.35, rely=0.85,
-                                                                                    relheight=0.09, relwidth=0.3)
-                                                                else:
-                                                                    put8 = Label(purpleframe, text='INCORRECT DATA')
-                                                                    put8.pack()
-                                                            else:
-                                                                put7 = Label(purpleframe, text='INPUT A VALID DATA')
-                                                                put7.pack()
-                                                            pass
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
 
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
 
-########################################################################################################################################################################################################
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
 
-                                                        purplebtn = Button(purpleframe, text="NEXT", bg='blue',
-                                                                           command=purple)
-                                                        purplebtn.place(relx=0.35, rely=0.85, relheight=0.09,
-                                                                        relwidth=0.3)
-                                                    else:
-                                                        put6 = Label(indigoframe, text='INCORRECT DATA')
-                                                        put6.pack()
-                                                else:
-                                                    put5 = Label(indigoframe, text='INPUT A VALID DATA')
-                                                    put5.pack()
-                                                pass
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=green1)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
 
-#######################################################################################################################################################################################
-                                            indigobtn = Button(indigoframe, text="NEXT", bg='blue', command=magenta)
-                                            indigobtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                                        else:
-                                            put4 = Label(blueframe, text='INCORRECT DATA')
-                                            put4.pack()
-                                    else:
-                                        put3 = Label(blueframe, text='INPUT A VALID DATA')
-                                        put3.pack()
-                                    pass
+        greens3 = time.time()
 
+        pass
 
-##################################################################################################################################################################################
-                                bluebtn = Button(blueframe, text="NEXT", bg='blue', command=blue)
-                                bluebtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                            else:
-                                put2 = Label(cyanframe, text='INCORRECT DATA')
-                                put2.pack()
-                        else:
-                            put1 = Label(cyanframe, text='INPUT A VALID DATA')
-                            put1.pack()
+    def red1():
+        global reds3, yellows3
+        reds3 = round((time.time() - reds3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='yellow', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
 
-                    cyanbtn = Button(cyanframe, text="NEXT", bg='blue', command=cyan)
-                    cyanbtn.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
-                else:
-                    put = Label(frame1, text='INCORRECT DATA')
-                    put.pack()
-            else:
-                put = Label(frame1, text='INPUT A VALID DATA')
-                put.pack()
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        nexting = Button(frame1, text="NEXT", bg='blue', command=nexts)
-        nexting.place(relx=0.35, rely=0.85, relheight=0.09, relwidth=0.3)
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
 
-        window.destroy()
-        nextPage.mainloop()
-    else:
-        warn = Label(text="Sorry You have to input your name")
-        warn.pack()
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=yellow1)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellows3 = time.time()
+
+        pass
+
+    def violet1():
+        global violets3, reds3
+        violets3 = round((time.time() - violets3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='red', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=red1)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        reds3 = time.time()
+
+        pass
+
+    def purple1():
+        global purples3, violets3
+        purples3 = round((time.time() - purples3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='violet', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=violet1)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violets3 = time.time()
+
+        pass
+
+    def magenta1():
+        global magentas3, purples3
+        magentas3 = round((time.time() - magentas3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='purple', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=purple1)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purples3 = time.time()
+
+        pass
+
+    def indigo1():
+        global magentas3, indigos3
+        indigos3 = round((time.time() - indigos3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='magenta', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=magenta1)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magentas3 = time.time()
+
+        pass
+
+    def blue1():
+        global blues3, indigos3
+        blues3 = round((time.time() - blues3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='indigo', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=indigo1)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigos3 = time.time()
+
+        pass
+
+    def cyan1():
+        global cyans3, blues3
+        cyans3 = round((time.time() - cyans3), 4)
+        time.sleep(2)
+        colors_change = Label(frame1, bg='blue', width=1, height=1)
+        colors_change.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.5)
+
+        cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=wrong)
+        cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blue = Button(frame1, text='B', bg='blue', bd=0.01, command=blue1)
+        blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+        indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+        magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+        purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+        violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+        yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+        red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+        green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+        blues3 = time.time()
+
+        pass
+
+    cyan = Button(frame1, text='C', bg='blue', bd=0.01, command=cyan1)
+    cyan.place(relx=0.05, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    blue = Button(frame1, text='B', bg='blue', bd=0.01, command=wrong)
+    blue.place(relx=0.15, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    indigo = Button(frame1, text='I', bg='blue', bd=0.01, command=wrong)
+    indigo.place(relx=0.25, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    magenta = Button(frame1, text='M', bg='blue', bd=0.01, command=wrong)
+    magenta.place(relx=0.35, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    purple = Button(frame1, text='P', bg='blue', bd=0.01, command=wrong)
+    purple.place(relx=0.45, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    violet = Button(frame1, text='V', bg='blue', bd=0.01, command=wrong)
+    violet.place(relx=0.55, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    yellow = Button(frame1, text='Y', bg='blue', bd=0.01, command=wrong)
+    yellow.place(relx=0.65, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    red = Button(frame1, text='R', bg='blue', bd=0.01, command=wrong)
+    red.place(relx=0.75, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    green = Button(frame1, text='G', bg='blue', bd=0.01, command=wrong)
+    green.place(relx=0.85, rely=0.9, relheight=0.05, relwidth=0.1)
+
+    cyans3 = time.time()
+
+    pass
 
 
 def buttons():
-    window.destroy()
-    buttonpage = Tk()
+    name = name_id.get()
+    age = age_id.get()
+    sex = sex_id.get()
 
-    buttonpage.title('SELECT TEST ' + name_id.get())
-    buttoncanvas = Canvas(height=500, width=500)
-    buttoncanvas.pack()
-    buttonframe = Frame(bg='white')
-    buttonframe.place(relwidth=1, relheight=1)
+    if name != "" and name !=" " and age!="" and age.isdigit() and sex!="" and sex == 'male' or sex == 'female' :
+        window.destroy()
+        buttonpage = Tk()
 
-    fiimg = Image.open("images/anotherone.png")
-    adimg = ImageTk.PhotoImage(fiimg)
-    labels = Label(buttonframe, image=adimg, bg='white', width=1, height=1)
-    labels.place(relx=0.25, rely=0.002, relheight=0.5, relwidth=0.5)
+        buttonpage.title('SELECT TEST ' + name_id.get())
+        buttoncanvas = Canvas(height=500, width=500)
+        buttoncanvas.pack()
+        buttonframe = Frame(bg='white')
+        buttonframe.place(relwidth=1, relheight=1)
 
-    button1 = Button(buttonframe, text='TEST 1', bg='blue', bd=0.01, command=game)
+        fiimg = Image.open("images/anotherone.png")
+        adimg = ImageTk.PhotoImage(fiimg)
+        labels = Label(buttonframe, image=adimg, bg='white', width=1, height=1)
+        labels.place(relx=0.25, rely=0.002, relheight=0.5, relwidth=0.5)
 
-    button1.place(relx=0.1, rely=0.4, relheight=0.09, relwidth=0.3)
-    button2 = Button(buttonframe, text='TEST 2', bg='blue', bd=0.01, command=game1)
+        button1 = Button(buttonframe, text='TEST 1', bg='blue',fg='white', bd=0.01, command=game)
 
-    button2.place(relx=0.1, rely=0.6, relheight=0.09, relwidth=0.3)
-    button3 = Button(buttonframe, text='TEST 3', bg='blue', bd=0.01, command=game2)
+        button1.place(relx=0.1, rely=0.4, relheight=0.09, relwidth=0.3)
+        button2 = Button(buttonframe, text='TEST 2', bg='blue',fg='white', bd=0.01, command=game1)
 
-    button3.place(relx=0.6, rely=0.4, relheight=0.09, relwidth=0.3)
-    button4 = Button(buttonframe, text='TEST 4', bg='blue', bd=0.01, command=game3)
+        button2.place(relx=0.1, rely=0.6, relheight=0.09, relwidth=0.3)
+        button3 = Button(buttonframe, text='TEST 3', bg='blue',fg='white', bd=0.01, command=game2)
 
-    button4.place(relx=0.6, rely=0.6, relheight=0.09, relwidth=0.3)
-    buttonpage.mainloop()
+        button3.place(relx=0.6, rely=0.4, relheight=0.09, relwidth=0.3)
+        button4 = Button(buttonframe, text='TEST 4', bg='blue',fg='white', bd=0.01, command=game3)
+
+        button4.place(relx=0.6, rely=0.6, relheight=0.09, relwidth=0.3)
+        buttonpage.mainloop()
+    else:
+        error = Label(frame, text="PLEASE INPUT SUBJECT DETAILS", fg='white', bg='black').place(relx=0.25, rely=0.1,
+                                                                                                relheight=0.05,
+                                                                                                relwidth=0.5)
 
 
-button = Button(frame, text='Start', bg='blue', bd=0.01, command=buttons)
+button = Button(frame, text='Start', bg='blue', bd=0.01,fg='white', command=buttons)
 
-button.place(relx=0.35, rely=0.7, relheight=0.09, relwidth=0.3)
+button.place(relx=0.35, rely=0.8, relheight=0.09, relwidth=0.3)
+eleos= Label(frame, text='eleos', bg='black',fg='white').place(relx=0.45,rely=0.97)
 
 window.mainloop()
